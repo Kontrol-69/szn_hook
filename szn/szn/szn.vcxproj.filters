@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\pch">
+      <UniqueIdentifier>{ad2e25a8-e39b-4461-a8eb-5505bd84c978}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\szn">
+      <UniqueIdentifier>{61b1592e-957d-4a42-acb0-19c8d901d6fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\szn\IW4MP">
+      <UniqueIdentifier>{cee7004a-6890-4c4c-afe2-294aa64b3d2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\szn\IW4MP\Aimbot">
+      <UniqueIdentifier>{048c089c-4495-48af-b789-ce57e481286c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\szn\IW4MP\D3D">
+      <UniqueIdentifier>{41635232-39b1-4f74-b43c-4053675658cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\szn\Math">
+      <UniqueIdentifier>{ff32d27f-8883-45b3-bdf9-6c795bc44c7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\szn\Memory">
+      <UniqueIdentifier>{e0d59b3a-edf4-4f7c-aa40-f533ee363cb5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\szn\Console">
+      <UniqueIdentifier>{0b59dd43-b2da-4b51-91fb-1a26a3e8cb64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\szn\IW4MP\Engine">
+      <UniqueIdentifier>{819af5dc-aba0-4454-8e6c-7ce63ac7423b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\szn\IW4MP\Hooking">
+      <UniqueIdentifier>{8664f4f7-3a78-4fa3-b8cc-8baf07134744}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\szn\ImGui">
+      <UniqueIdentifier>{7b61930f-bc53-4ee7-9dc6-9ef9b21f0bde}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\szn\IW4MP\Rendering">
+      <UniqueIdentifier>{5676a41f-7ef0-4fc5-845d-4c476dc78f98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\szn\IW4MP\cvars">
+      <UniqueIdentifier>{6a27f517-98c7-45e0-8325-9d2e82244b34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\szn\IW4MP\Engine\Structs">
+      <UniqueIdentifier>{c498a881-b048-4a33-a82e-bf6097ecb8e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\szn\IW4MP\Rendering\Visuals">
+      <UniqueIdentifier>{ad31f648-0c78-4b68-a6a0-e4e2d34eee59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\szn\IW4MP\Anti-Aim">
+      <UniqueIdentifier>{e1e52a81-c073-44a0-ac9b-0db2a3312d30}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="framework.h">
+      <Filter>Header Files\pch</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Header Files\pch</Filter>
+    </ClInclude>
+    <ClInclude Include="Memory.h">
+      <Filter>Header Files\szn\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="szn.h">
+      <Filter>Header Files\szn</Filter>
+    </ClInclude>
+    <ClInclude Include="Console.h">
+      <Filter>Header Files\szn\Console</Filter>
+    </ClInclude>
+    <ClInclude Include="D3D.h">
+      <Filter>Header Files\szn\IW4MP\D3D</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imconfig.h">
+      <Filter>Header Files\szn\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imgui.h">
+      <Filter>Header Files\szn\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imgui_impl_dx9.h">
+      <Filter>Header Files\szn\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imgui_impl_win32.h">
+      <Filter>Header Files\szn\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imgui_internal.h">
+      <Filter>Header Files\szn\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imstb_rectpack.h">
+      <Filter>Header Files\szn\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imstb_textedit.h">
+      <Filter>Header Files\szn\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imstb_truetype.h">
+      <Filter>Header Files\szn\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Hooking.h">
+      <Filter>Header Files\szn\IW4MP\Hooking</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering.h">
+      <Filter>Header Files\szn\IW4MP\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="cvars.h">
+      <Filter>Header Files\szn\IW4MP\cvars</Filter>
+    </ClInclude>
+    <ClInclude Include="Structs.h">
+      <Filter>Header Files\szn\IW4MP\Engine\Structs</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine.h">
+      <Filter>Header Files\szn\IW4MP\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Visuals.h">
+      <Filter>Header Files\szn\IW4MP\Rendering\Visuals</Filter>
+    </ClInclude>
+    <ClInclude Include="Math.h">
+      <Filter>Header Files\szn\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Anti-Aim.h">
+      <Filter>Header Files\szn\IW4MP\Anti-Aim</Filter>
+    </ClInclude>
+    <ClInclude Include="Aimbot.h">
+      <Filter>Header Files\szn\IW4MP\Aimbot</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Memory.cpp">
+      <Filter>Header Files\szn\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="Console.cpp">
+      <Filter>Header Files\szn\Console</Filter>
+    </ClCompile>
+    <ClCompile Include="D3D.cpp">
+      <Filter>Header Files\szn\IW4MP\D3D</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui.cpp">
+      <Filter>Header Files\szn\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_demo.cpp">
+      <Filter>Header Files\szn\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_draw.cpp">
+      <Filter>Header Files\szn\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_impl_dx9.cpp">
+      <Filter>Header Files\szn\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_impl_win32.cpp">
+      <Filter>Header Files\szn\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_widgets.cpp">
+      <Filter>Header Files\szn\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Hooking.cpp">
+      <Filter>Header Files\szn\IW4MP\Hooking</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering.cpp">
+      <Filter>Header Files\szn\IW4MP\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="cvars.cpp">
+      <Filter>Header Files\szn\IW4MP\cvars</Filter>
+    </ClCompile>
+    <ClCompile Include="Structs.cpp">
+      <Filter>Header Files\szn\IW4MP\Engine\Structs</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine.cpp">
+      <Filter>Header Files\szn\IW4MP\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Visuals.cpp">
+      <Filter>Header Files\szn\IW4MP\Rendering\Visuals</Filter>
+    </ClCompile>
+    <ClCompile Include="Math.cpp">
+      <Filter>Header Files\szn\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Anti-Aim.cpp">
+      <Filter>Header Files\szn\IW4MP\Anti-Aim</Filter>
+    </ClCompile>
+    <ClCompile Include="Aimbot.cpp">
+      <Filter>Header Files\szn\IW4MP\Aimbot</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
