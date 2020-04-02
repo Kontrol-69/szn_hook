@@ -252,12 +252,12 @@ void aimbot::bg_get_spread_for_weapon(complete_weapon_def_t* weapon, float* min_
 
 	if (*((int*)cg + 0xB4) == 2)
 	{
-		*min_spread = (float)*((int*)cg[0xB3]);
-		*max_spread = (float)*((int*)cg[0xB3]);
+		*min_spread = (float)*((int*)cg + 0xB3);
+		*max_spread = (float)*((int*)cg + 0xB3);
 	}
 	else
 	{
-		viewHeightCurrent = *((float*)cg[0x47]);
+		viewHeightCurrent = *((float*)cg + 0x47);
 
 		if (viewHeightCurrent <= 40.f)
 		{
@@ -275,10 +275,10 @@ void aimbot::bg_get_spread_for_weapon(complete_weapon_def_t* weapon, float* min_
 		}
 	}
 
-	if (*((int*)cg[0xB4]) == 1)
-		*max_spread = (float)*((int*)cg[0xB3]);
+	if (*((int*)cg + 0xB4) == 1)
+		*max_spread = (float)*((int*)cg + 0xB3);
 
-	if (*((BYTE*)cg[0x428]) & 2)
+	if (*((BYTE*)cg + 0x428) & 2)
 	{
 		end_spread = (float*)(*(int*)0x86CC2C + 0xC);
 		*min_spread = *min_spread * *(float*)(*(int*)0x86CC2C + 0xC);
