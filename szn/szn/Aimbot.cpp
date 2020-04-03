@@ -102,15 +102,15 @@ float aimbot::autowall(D3DXVECTOR3 start, D3DXVECTOR3 end)
 
 			bullet_enter_depth *= fmj_perk ? 2.f : 1.f;
 
+			if (bullet_enter_depth < 0.f)
+				return 0.f;
+
 			weapon_depth = *(float*)(weapon + 0x30) * (bullet_enter_depth * 0.50251256281f);
 
 			if (*(DWORD*)(weapon + 0xE0) == 1 && fmj_perk)
-				weapon_depth = *(float*)(*(DWORD*)0x86CC24 + 0xC) * weapon_depth;
+				weapon_depth *= *(float*)(*(DWORD*)0x86CC24 + 0xC);
 
-			if (weapon_depth > 0.f)
-				return bullet_enter.damageMultiplier;
-
-			if (bullet_enter_depth <= 0.f)
+			if (weapon_depth <= 0.f)
 				return 0.f;
 
 			VectorCopy(trace_enter.endpos, copy_trace_hit);
@@ -155,17 +155,18 @@ float aimbot::autowall(D3DXVECTOR3 start, D3DXVECTOR3 end)
 						bullet_exit_depth = 100.f;
 
 					bullet_exit_depth *= fmj_perk ? 2.f : 1.f;
+
 					bullet_enter_depth = min(bullet_enter_depth, bullet_exit_depth);
+
+					if (bullet_enter_depth <= 0.f)
+						return 0.f;
 
 					weapon_depth = *(float*)(weapon + 0x30) * (bullet_enter_depth * 0.50251256281f);
 
 					if (*(DWORD*)(weapon + 0xE0) == 1 && fmj_perk)
-						weapon_depth = *(float*)(*(DWORD*)0x86CC24 + 0xC) * weapon_depth;
+						weapon_depth *= *(float*)(*(DWORD*)0x86CC24 + 0xC);
 
-					if (weapon_depth > 0.f)
-						return bullet_enter.damageMultiplier;
-
-					if (bullet_enter_depth <= 0.f)
+					if (weapon_depth < 0.f)
 						return 0.f;
 				}
 
