@@ -76,7 +76,7 @@ float aimbot::autowall(D3DXVECTOR3 start, D3DXVECTOR3 end)
 	int traced_surface_count = 0;
 	float weapon_depth, bullet_enter_depth, bullet_exit_depth, trace_surface_depth;
 
-	bullet_enter.WorldEntNum = 0x3FE;
+	bullet_enter.WorldEntNum = 0x7FE;
 	bullet_enter.ignoreEntIndex = local_index;
 	bullet_enter.damageMultiplier = 2.f;
 	bullet_enter.methodOfDeath = (*(BYTE*)(weapon + 0x65C) != 0) + 1;
@@ -97,6 +97,14 @@ float aimbot::autowall(D3DXVECTOR3 start, D3DXVECTOR3 end)
 		{
 			bullet_enter_depth = engine::branch<float>(0x479430, weapon, trace_enter.materialType);
 
+			//weapon_depth = *(float*)(weapon + 0x30) * (bullet_enter_depth * 0.50251256281f);
+
+			//if (*(DWORD*)(weapon + 0xE0) && fmj_perk)
+			//	weapon_depth *= *(float*)(*(DWORD*)0x86CC24 + 0xC);
+
+			//if (weapon_depth > 0.f)
+			//	return (bullet_enter_depth * 0.50251256281f);
+
 			if (trace_enter.surfaceFlags & 4)
 				bullet_enter_depth = 100.f;
 
@@ -105,18 +113,10 @@ float aimbot::autowall(D3DXVECTOR3 start, D3DXVECTOR3 end)
 			if (bullet_enter_depth < 0.f)
 				return 0.f;
 
-			weapon_depth = *(float*)(weapon + 0x30) * (bullet_enter_depth * 0.50251256281f);
-
-			if (*(DWORD*)(weapon + 0xE0) == 1 && fmj_perk)
-				weapon_depth *= *(float*)(*(DWORD*)0x86CC24 + 0xC);
-
-			if (weapon_depth <= 0.f)
-				return 0.f;
-
 			VectorCopy(trace_enter.endpos, copy_trace_hit);
 
 			if (!engine::branch<bool>(0x479A80, &bullet_enter, &trace_enter, 0.13500001f))
-				return 0.f;
+				return -1.f;
 
 			is_traced_hit = engine::bullet_trace(&bullet_enter, &trace_enter, local_entity, trace_enter.materialType);
 
@@ -159,21 +159,13 @@ float aimbot::autowall(D3DXVECTOR3 start, D3DXVECTOR3 end)
 					bullet_enter_depth = min(bullet_enter_depth, bullet_exit_depth);
 
 					if (bullet_enter_depth <= 0.f)
-						return 0.f;
-
-					weapon_depth = *(float*)(weapon + 0x30) * (bullet_enter_depth * 0.50251256281f);
-
-					if (*(DWORD*)(weapon + 0xE0) == 1 && fmj_perk)
-						weapon_depth *= *(float*)(*(DWORD*)0x86CC24 + 0xC);
-
-					if (weapon_depth < 0.f)
-						return 0.f;
+						return -1.f;
 				}
 
 				bullet_enter.damageMultiplier -= trace_surface_depth / bullet_enter_depth;
 
 				if (bullet_enter.damageMultiplier <= 0.f)
-					return 0.f;
+					return -1.f;
 			}
 			else if (!is_traced_hit)
 				return bullet_enter.damageMultiplier;
@@ -182,7 +174,7 @@ float aimbot::autowall(D3DXVECTOR3 start, D3DXVECTOR3 end)
 				if (++traced_surface_count < cvar::surface_count)
 					continue;
 
-			return 0.f;
+			return -1.f;
 		}
 	}
 
