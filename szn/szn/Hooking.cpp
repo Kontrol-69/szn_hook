@@ -68,7 +68,9 @@ namespace callback
 int* hooking::cg_drawactiveframe(int a1, float a2, int a3, int a4, int a5, int a6, int a7, int a8)
 {
 	load_structs();
-	aimbot::calc_angles();
+
+	if (engine::is_local_player_ingame())
+		aimbot::calc_angles();
 
 	return callback::cg_drawactiveframe(a1, a2, a3, a4, a5, a6, a7, a8);
 }
@@ -80,15 +82,15 @@ void hooking::scr_updatescreen(void)
 
 	if (engine::is_local_player_ingame())
 	{
-		engine::modify_dvars();
 		engine::spoof_ip();
+		engine::modify_dvars();
 
 		memory((void*)0x4B9FE7).write(cvar::remove_recoil ? "\x90\x90\x90\x90\x90" : "\xE8\x74\xFF\xFB\xFF");
 		memory((void*)(0x4B50B1 + 0x2E)).write("\x75");
-
-		if (GetAsyncKeyState(VK_HOME) & 0x8000)
-			bot.addbots();
 	}
+
+	if (GetAsyncKeyState(VK_HOME) & 0x8000)
+		bot.addbots();
 
 	callback::scr_updatescreen();
 }
@@ -97,7 +99,7 @@ void hooking::cg_calcentitylerppos(int localclientnum, entity_t* centity)
 {
 	callback::cg_calcentitylerppos(localclientnum, centity);
 
-	if (centity->ClientID == cg->ClientID && cg->Health > 0 && cvar::anti_aim && cvar::cg_thirdperson)
+	if (centity->ClientID == cg->ClientID && cvar::anti_aim && cvar::cg_thirdperson)
 	{
 		if (cvar::current_pitch != 0)
 			cg->client[cg->ClientID].viewAngle.x = cvar::stored_angles[ANGLE_PITCH] + clientactive->spawnAngle.x;
@@ -182,7 +184,6 @@ void hooking::thread(HMODULE module)
 			}
 		}
 
-		engine::vac_bypass();
 		engine::reload_cancel();
 
 		if (GetAsyncKeyState(VK_DELETE) & 0x8000)

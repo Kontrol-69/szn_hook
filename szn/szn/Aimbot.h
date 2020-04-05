@@ -35,9 +35,8 @@ struct nospread_t
 	complete_weapon_def_t* weapon;
 	float spread, min_spread, max_spread;
 
-	unsigned int transform_seed;
-	float transformed_spread[2];
-	float spread_x, spread_y;
+	int seed;
+	float f1, f2, f3, f4;
 };
 
 namespace aimbot

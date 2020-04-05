@@ -1,8 +1,13 @@
 #include "szn.h"
 
+bool Dvar_GetBool(const char* cmd)
+{
+	return ((bool(*)(...))0x5BCF60)(cmd);
+}
+
 bool engine::is_local_player_ingame()
 {
-	if (engine::branch<bool>(0x5BCF60, "cl_ingame"))
+	if (Dvar_GetBool("cl_ingame"))
 		return true;
 
 	return false;
@@ -59,9 +64,6 @@ int engine::get_weapon_def(int weapon_id)
 
 bool engine::bullet_trace(bullet_fire_params* bullet_enter, trace_t* trace, entity_t* entity, int surface)
 {
-	if (!cg->Health > 0)
-		return false;
-
 	bool uk;
 	DWORD fcall = 0x4B4520;
 
@@ -124,7 +126,7 @@ void engine::spoof_ip(void)
 
 void engine::reload_cancel(void)
 {
-	if (cg->Health <= 0)
+	if (cg == nullptr)
 		return;
 
 	if (cvar::reload_cancel)

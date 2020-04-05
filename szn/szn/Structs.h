@@ -62,7 +62,6 @@ struct cg_s
 	char pad_02C8[984];				//0x02C8
 	int EntityCount;				//0x06A0
 	char pad_06A4[0xF636C];			//0x06A4
-	client_t client[18];		//0xF6A10
 };
 
 struct entity_t

@@ -56,6 +56,9 @@ float aimbot::autowall(D3DXVECTOR3 start, D3DXVECTOR3 end)
 	if (cg->Health <= 0)
 		return -1.f;
 
+	if (!engine::branch<bool>(0x5BCF60, "mantle_enable") && cvar::anti_aim_mantle_check)
+		return -1.f;
+
 	int local_index;
 	entity_t* local_entity;
 	complete_weapon_def_t* weapon;
@@ -89,7 +92,7 @@ float aimbot::autowall(D3DXVECTOR3 start, D3DXVECTOR3 end)
 	math.normalize_vector(full_rotation);
 	VectorCopy(full_rotation, (D3DXVECTOR3&)bullet_enter.Dir);
 
-	is_traced_hit = engine::bullet_trace(&bullet_enter, &trace_enter, local_entity, 0);
+	is_traced_hit = engine::bullet_trace(&bullet_enter, &trace_enter, local_entity, TRACE_HITTYPE_NONE);
 
 	if (is_traced_hit)
 	{
@@ -110,13 +113,13 @@ float aimbot::autowall(D3DXVECTOR3 start, D3DXVECTOR3 end)
 
 			bullet_enter_depth *= fmj_perk ? 2.f : 1.f;
 
-			if (bullet_enter_depth < 0.f)
+			if (bullet_enter_depth <= 0.f)
 				return 0.f;
 
 			VectorCopy(trace_enter.endpos, copy_trace_hit);
 
 			if (!engine::branch<bool>(0x479A80, &bullet_enter, &trace_enter, 0.13500001f))
-				return -1.f;
+				return 0.f;
 
 			is_traced_hit = engine::bullet_trace(&bullet_enter, &trace_enter, local_entity, trace_enter.materialType);
 
@@ -135,7 +138,7 @@ float aimbot::autowall(D3DXVECTOR3 start, D3DXVECTOR3 end)
 			exit_trace = engine::bullet_trace(&bullet_exit, &trace_exit, local_entity, trace_exit.materialType);
 			solid_trace = exit_trace && trace_exit.allsolid || trace_enter.startsolid && trace_exit.startsolid;
 
-			if (trace_exit.materialType == 0 && trace_enter.materialType == 0)
+			if (trace_exit.materialType == TRACE_HITTYPE_NONE && trace_enter.materialType == TRACE_HITTYPE_NONE)
 				return bullet_enter.damageMultiplier;
 
 			if (exit_trace || solid_trace)
@@ -159,13 +162,13 @@ float aimbot::autowall(D3DXVECTOR3 start, D3DXVECTOR3 end)
 					bullet_enter_depth = min(bullet_enter_depth, bullet_exit_depth);
 
 					if (bullet_enter_depth <= 0.f)
-						return -1.f;
+						return 0.f;
 				}
 
 				bullet_enter.damageMultiplier -= trace_surface_depth / bullet_enter_depth;
 
 				if (bullet_enter.damageMultiplier <= 0.f)
-					return -1.f;
+					return 0.f;
 			}
 			else if (!is_traced_hit)
 				return bullet_enter.damageMultiplier;
@@ -174,7 +177,7 @@ float aimbot::autowall(D3DXVECTOR3 start, D3DXVECTOR3 end)
 				if (++traced_surface_count < cvar::surface_count)
 					continue;
 
-			return -1.f;
+			return 0.f;
 		}
 	}
 
@@ -313,14 +316,14 @@ void aimbot::compensate_spread(usercmd_s* cmd)
 	aimbot::first_bullet_fix();
 	aimbot::get_spread(&nospread.spread);
 
-	nospread.transform_seed = aimbot::transform_seed(cmd->serverTime);
+	nospread.seed = aimbot::transform_seed(cmd->serverTime);
 
-	nospread.transformed_spread[0] = (nospread.transform_seed >> 17) * 0.000030517578125f * 360.0f * 0.01745329238474369f;
-	nospread.transformed_spread[1] = (static_cast<unsigned int>(0x343FD * nospread.transform_seed + 0x269EC3) >> 17) * 0.000030517578125f;
+	nospread.f1 = (nospread.seed >> 17) * 0.000030517578125f * 360.0f * 0.01745329238474369f;
+	nospread.f2 = ((int)(0x343FD * nospread.seed + 0x269EC3) >> 17) * 0.000030517578125f;
 
-	nospread.spread_x = sin(nospread.transformed_spread[0]) * nospread.transformed_spread[1] * -nospread.spread;
-	nospread.spread_y = cos(nospread.transformed_spread[0]) * nospread.transformed_spread[1] * -nospread.spread;
+	nospread.f3 = sin(nospread.f1) * nospread.f2 * -nospread.spread;
+	nospread.f4 = cos(nospread.f1) * nospread.f2 * -nospread.spread;
 
-	cmd->viewAngles[0] -= ANGLE2SHORT(nospread.spread_x);
-	cmd->viewAngles[1] -= ANGLE2SHORT(nospread.spread_y);
+	cmd->viewAngles[0] -= ANGLE2SHORT(nospread.f3);
+	cmd->viewAngles[1] -= ANGLE2SHORT(nospread.f4);
 }
