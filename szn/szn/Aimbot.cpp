@@ -56,7 +56,7 @@ float aimbot::autowall(D3DXVECTOR3 start, D3DXVECTOR3 end)
 	if (cg->Health <= 0)
 		return -1.f;
 
-	if (!engine::branch<bool>(0x5BCF60, "mantle_enable") && cvar::anti_aim_mantle_check)
+	if (!engine::branch<bool>(0x5BCF60, "mantle_enable"))
 		return -1.f;
 
 	int local_index;
@@ -68,7 +68,7 @@ float aimbot::autowall(D3DXVECTOR3 start, D3DXVECTOR3 end)
 	weapon = reinterpret_cast<complete_weapon_def_t*>(engine::get_weapon_def(local_entity->WeaponID));
 
 	if (!weapon)
-		return -1.f;
+		return -2.f;
 
 	bullet_fire_params bullet_enter, bullet_exit;
 	trace_t trace_enter, trace_exit;
@@ -77,12 +77,12 @@ float aimbot::autowall(D3DXVECTOR3 start, D3DXVECTOR3 end)
 
 	bool is_traced_hit, fmj_perk = cg->client[local_index].Perk & 0x20, exit_trace, solid_trace;
 	int traced_surface_count = 0;
-	float weapon_depth, bullet_enter_depth, bullet_exit_depth, trace_surface_depth;
+	float bullet_enter_depth, bullet_exit_depth, trace_surface_depth;
 
 	bullet_enter.WorldEntNum = 0x7FE;
 	bullet_enter.ignoreEntIndex = local_index;
 	bullet_enter.damageMultiplier = 2.f;
-	bullet_enter.methodOfDeath = (*(BYTE*)(weapon + 0x65C) != 0) + 1;
+	bullet_enter.methodOfDeath = engine::branch<int>(0x47AC30, &cg->client[local_index], weapon);
 
 	VectorCopy(start, bullet_enter.Origin);
 	VectorCopy(start, bullet_enter.Start);
